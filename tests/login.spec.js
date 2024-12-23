@@ -12,6 +12,6 @@ test("Login com sucesso", async ({page}) => {
 });
 
 test.afterEach(async ({page}) => {
-  createPDF();
+  await createPDF();
   await page.close();
 })

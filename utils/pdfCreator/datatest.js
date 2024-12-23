@@ -2,7 +2,17 @@ const test = require('@playwright/test');
 
 //Função a ser chamada dentro do Page object
 const titulodostep = []
+const pages=[]
 const newDate = new Date();
+
+//Função captura os screenshots do page e adiciona no PDF
+async function takescreenshot(page) {
+    try {
+        pages.push(await page.screenshot())
+    } catch (error) {
+        console.log("Erro ao capturar tela: " + error);
+    }
+}
 
 //Função a ser chamada dentro do Page object
 //Descreve o nome do step no console e na pagina pdf
@@ -38,4 +48,4 @@ function pdfCreateName() {
         hora: newDate.toLocaleTimeString().replaceAll(':', ''),
     }
 }
-module.exports = { pdfCreateName, step ,infoTeste}
+module.exports = { pdfCreateName, step ,infoTeste,takescreenshot,pages}

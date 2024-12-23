@@ -1,5 +1,4 @@
-import { takescreenshot } from '../utils/pdfCreator/generatePDF';
-import { step } from '../utils/pdfCreator/datatest';
+import { step, takescreenshot } from '../utils/pdfCreator/datatest';
 import { expect } from '@playwright/test';
 
 export class LoginPage {
@@ -14,11 +13,12 @@ export class LoginPage {
         await takescreenshot(this.page)
     }
 
-    async setEmail() {
+    setEmail = async ()=>{
         step("Setando email")
         await this.page.locator('input[name="Email"]').fill('admin@yourstore.com');
         await takescreenshot(this.page)
-    }
+    }; 
+        
 
     async setSenha() {
         step("Setando senha")
