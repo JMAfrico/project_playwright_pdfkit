@@ -1,18 +1,16 @@
 const PDFDocument = require('pdfkit')
-const { step,infoTeste } = require('./datatest');
+const { infoTeste ,getPages} = require('./datatest');
 
-function document(pages) {
-
-	//Import para preencher o nome do step sendo executado
-	const stepName = step()
-
-	//Documentação para criação de PDF : https://pdfkit.org/
+/**
+ * https://pdfkit.org/
+ * Responsável por gerar e manipular documentos PDF a partir de dados e screenshots capturados durante a execução de testes.
+ **/
+function document() {
+	
 	const doc = new PDFDocument({ margin: 30, size : 'A4' })
 
-	//Fonte
 	doc.font('Courier')
 
-	//Tamanho
 	doc.fontSize(18);
 
 	//Informações da primeira página
@@ -31,19 +29,18 @@ function document(pages) {
 
 	//Paginas contendo nome dos steps e imagens geradas
 	doc.addPage();
-	for (let index = 0; index < pages.length; index++) {
-		doc.text(stepName[index])
-		doc.image(pages[index], 0, 0, { fit:  [595.28, 841.89], align: 'justify', valign: 'center' })
-		if (pages.length != index + 1) {
+	for (let index = 0; index < getPages().print.length; index++) {
+		doc.text(getPages().step[index])
+		doc.image(getPages().print[index], 0, 0, { fit:  [595.28, 841.89], align: 'justify', valign: 'center' })
+		if (getPages().print.length != index + 1) {
 			doc.addPage()
 		}
 	}
 
-	//Faz a escrita dos dados no pdf e cria o arquivo
-	//doc.pipe(fs.createWriteStream('/path/to/file.pdf'));
-
 	//finaliza o preenchimento do documento
 	doc.end()
+
+	//Retorna o documento criado para ser salvo
 	return doc
 }
 module.exports= {document}

@@ -1,16 +1,17 @@
 import { once } from 'events';
 import { document } from './main'
 const fs = require('fs');
-const { pdfCreateName, pages } = require('./datatest');
+const { pdfCreateName,getPages} = require('./datatest');
 
-
-//Finaliza a criação do documento
+/**
+ * Responsável por salvar o documento PDF no sistema de arquivos.
+ */
 async function createPDF() {
     try {
-        if (pages.length > 0) {
+        if (getPages().print.length > 0) {
             console.log("Gerando PDF...");
             const path = `evidencia/${pdfCreateName().titulo}_${pdfCreateName().data}${pdfCreateName().hora}.pdf`
-            const write = document(pages).pipe(fs.createWriteStream(path))
+            const write = document().pipe(fs.createWriteStream(path))
             await once(write, 'finish')
             console.log("PDF gerado com sucesso.");
         }

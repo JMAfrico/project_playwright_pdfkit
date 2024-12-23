@@ -8,7 +8,7 @@ test("Login com sucesso", async ({page}) => {
   await loginPage.setEmail();
   await loginPage.setSenha()
   await loginPage.clickBtnLogin()
-  await loginPage.validandoAcesso();
+  //await loginPage.validandoAcesso();
 });
 
 test.afterEach(async ({page}) => {

@@ -5,8 +5,16 @@ const titulodostep = []
 const pages=[]
 const newDate = new Date();
 
+// Função para retornar o array pages
+function getPages() {
+    return {
+        print: pages,
+        step: titulodostep
+    }
+}
+
 //Função captura os screenshots do page e adiciona no PDF
-async function takescreenshot(page) {
+async function takeScreenshot(page) {
     try {
         pages.push(await page.screenshot())
     } catch (error) {
@@ -20,7 +28,6 @@ function step(stepname) {
     try {
         console.log("Step: " + stepname);
         titulodostep.push(stepname)
-        return titulodostep;
     } catch (error) {
         console.log(error)
     }
@@ -48,4 +55,4 @@ function pdfCreateName() {
         hora: newDate.toLocaleTimeString().replaceAll(':', ''),
     }
 }
-module.exports = { pdfCreateName, step ,infoTeste,takescreenshot,pages}
+module.exports = { pdfCreateName, step ,infoTeste,takeScreenshot,getPages}
